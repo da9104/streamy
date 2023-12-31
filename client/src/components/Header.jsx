@@ -1,7 +1,52 @@
-import { Component } from 'react'
+import { Component, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Payment from './Payment'
+
+export function Modal({auth}) {
+	const [showModal, setShowModal] = useState(false)
+
+	const handleClick = () => {
+		setShowModal(true)
+	}	
+
+	const handleClose = () => {
+		setShowModal(false)
+	}
+
+	return (
+		<>
+		<button id="mobileBtn" onClick={handleClick} type="button" className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden">
+		  <span className="absolute -inset-0.5"></span>
+		  <span className="sr-only">Mobile menu</span>
+		  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+			<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+		  </svg>
+		</button>
+
+		{showModal && <div onClick={handleClose} className="z-40 absolute inset-0 bg-gray-100 h-full lg:hidden">
+		 <button onClick={handleClose} className='absolute top-14 left-9 mt-1 bg-transparent'> <i className="fa fa-close"></i> </button>
+				<ul className='list-none flex flex-row absolute top-14 left-20 gap-10 mt-1 font-medium text-sm text-center items-center justify-center content-center'>
+					<li>
+						Shop
+					</li>
+					<li>
+						Dashboard
+					</li>
+					<li>
+						Contact us
+					</li>
+					<li>
+						{auth? <a href="/api/logout">Log out</a>  : <a href="/auth/google">Log in</a> }
+					</li>
+					<li>
+						{auth? <Payment /> : '' }
+					</li>
+				</ul>
+		</div>}
+		</>
+	)
+}
 
 class Header extends Component {
 	renderContent() {
@@ -18,8 +63,10 @@ class Header extends Component {
 				]
 			}
 	}
+
 	render() {
-		return (
+
+  return (
   <header className="relative bg-white">
   <p className="flex h-10 items-center justify-center bg-indigo-300 shadow-md px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p>
 
@@ -27,13 +74,7 @@ class Header extends Component {
 	<div className="border-b border-gray-200">
 	  <div className="flex h-16 items-center">
 
-		<button type="button" className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden">
-		  <span className="absolute -inset-0.5"></span>
-		  <span className="sr-only">Open menu</span>
-		  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-			<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-		  </svg>
-		</button>
+		<Modal auth={this.props.auth}/>
 
 		<div className="ml-4 flex lg:ml-0">
 			<Link to={this.props.auth ? '/surveys' : '/'}>
@@ -41,7 +82,7 @@ class Header extends Component {
 			</Link>
 		</div>
 
-		<div className="hidden lg:ml-8 lg:block lg:self-stretch">
+		<div className="hidden md:block lg:ml-8 lg:block lg:self-stretch">
 		  <div className="flex h-full space-x-8">
 			<div className="flex">
 			  <div className="relative flex">
@@ -64,7 +105,7 @@ class Header extends Component {
 							<span className="absolute inset-0 z-10"></span>
 							New Arrivals
 						  </a>
-						  <p ariaHidden="true" className="mt-1">Shop now</p>
+						  <p className="mt-1">Shop now</p>
 						</div>
 						<div className="group relative text-base sm:text-sm">
 						  <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
