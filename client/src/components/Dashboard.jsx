@@ -5,7 +5,7 @@ class Dashboard extends Component {
     render() {
         if (this.props.auth) {
         return (
-         <div className='z-40 -mt-24 mb-0 pt-2 px-5 text-sm font-medium'>
+         <div className='z-40 -mt-24 pt-2 px-5 text-sm font-medium'>
           <div className='flex flex-row gap-5 justify-center items-center'>
             <p> Wellcome, {`${this.props.auth.name}`} </p>
             <img className='rounded-full size-10 self-center' src={`${this.props.auth.avatar}`} alt={`${this.props.auth.email}`}/>
@@ -17,7 +17,7 @@ class Dashboard extends Component {
          )
            } else {
              return(
-                <div className='flex justify-center w-full max-w-lg'>
+                <div className='-mt-24 pt-2 px-5 flex justify-center w-full max-w-lg'>
                    <div className=" border-gray-100 shadow rounded-md p-4 lg:w-full">
                     <div className="animate-pulse flex space-x-4">
                         <div className="rounded-full bg-slate-200 h-10 w-10"></div>
