@@ -16,7 +16,6 @@ class Payment extends Component {
                //  stripeKey={__STRIPE_KEY__}
                 >
                 <a className='px-4 py-1 text-white transition duration-500 ease-out bg-pink-200 rounded-lg hover:bg-pink-200 cursor-point text-sm font-medium'>Buy a credit</a>
-              
                 </StripeCheckout>
         )
     }
